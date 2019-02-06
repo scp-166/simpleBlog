@@ -1,0 +1,8 @@
+Django==2.0.8
+django-ckeditor==5.6.1
+django-js-asset==1.1.0
+mysqlclient==1.4.1
+Pillow==5.4.0
+python-memcached==1.59
+pytz==2018.7
+six==1.12.0
