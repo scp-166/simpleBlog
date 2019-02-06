@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %}
+    猫叹息道
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <!-- Highcharts可视化 https://www.hcharts.cn/docs/start-helloworld -->
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+{% endblock %}
+
+{% block body-content %}
+
+    <h1 class="_home-content"><a href="{% url 'blog:blog_list' %}">个人博客</a></h1>
+    <!-- 图表容器 DOM -->
+    <div id="container"></div>
+    <script>
+        // 图表配置
+        var options = {
+            chart: {
+                type: 'line'                        //指定图表的类型，默认是折线图（line）
+            },
+            title: {
+                text: null                          // 标题
+            },
+            xAxis: {
+                categories: {{ dates|safe }},  // x 轴分类
+                title: {text: "七天阅读量变化"},
+            },
+            yAxis: {
+                title: {
+                    text: '阅读量'                   // y 轴标题
+                },
+                lables: {
+                    enabled: false,
+                },
+
+            },
+            series: [{                              // 数据列
+                name: '阅读量',                        // 数据列名
+                data: {{ read_statistics_total }}                // 数据
+            }],
+            legend: {
+                enabled: false, //隐藏图例
+            },
+            credits: {
+                enabled: false, // 隐藏右下角版权
+            },
+            plotOptions: {  // 开启数据标签
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            }
+
+
+        };
+        // 图表初始化函数
+        var chart = Highcharts.chart('container', options);
+    </script>
+
+
+    <div class="hidden-xs col-sm-4 col-md-4 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">  <!-- 超小屏幕隐藏 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">今日访问量</div>
+            <div class="panel-body">
+                <ul>
+                    {% for data in today_hot_data %}
+                        <li class="list-group-item text-center">
+                            <a href="{% url 'blog:blog_detail' blog_pk=data.content_object.pk %}">
+                                《{{ data.content_object.title }}》({{ data.read_number }})
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item"> 暂无数据</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden-xs col-sm-4 col-md-4 col-lg-3">  <!-- 超小屏幕隐藏 -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">昨日访问量</div>
+            <div class="panel-body">
+                <ul>
+                    {% for data in yesterday_hot_data %}
+                        <li class="list-group-item text-center">
+                            <a href="{% url 'blog:blog_detail' blog_pk=data.content_object.pk %}">
+                                {{ data.content_object.title }}({{ data.read_number }})
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item"> 暂无数据</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden-xs col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4 ">  <!-- 超小屏幕隐藏 -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">七天访问量</div>
+            <div class="panel-body">
+                <ul>
+                    {% for blog in seven_days_hot_data %}
+                        <li class="list-group-item text-center">
+                            <a href="{% url 'blog:blog_detail' blog_pk=blog.id %}">
+                                {{ blog.title }}({{ blog.read_number_total }})
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item"> 暂无数据</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

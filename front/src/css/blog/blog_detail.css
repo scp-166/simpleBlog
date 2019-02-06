@@ -1,0 +1,20 @@
+ul._blog-desc {
+    /* 去掉li标签的点点 */
+    list-style-type: none;
+    margin-bottom: 2em;
+}
+
+ul._blog-desc li {
+    /* 使成一行 */
+    display: inline-block;
+    margin-right: 2em;
+}
+
+div._blog-content{
+    text-indent: 2em;
+    margin-bottom: 2em;
+}
+
+div._blog-more{
+    margin-top: 1em;
+}

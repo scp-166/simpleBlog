@@ -1,0 +1,15 @@
+div._blog-body:not(:last-child) {
+    /*不是最后一个都有以下属性*/
+    margin-bottom: 2em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1em;
+}
+
+div._blog-body p._blog-info {
+    margin: 0;
+}
+
+
+div._paginator {
+    text-align: center;
+}
