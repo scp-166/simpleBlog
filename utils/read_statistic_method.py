@@ -79,7 +79,6 @@ def get_yesterday_hot_data(content_type):
     today = timezone.now().date()
     date = today - datetime.timedelta(days=1)
     read_details = ReadDetail.objects.filter(content_type=content_type, date=date).order_by("-read_number")
-    print(type(read_details))
     return read_details[:5]
 
 
@@ -94,6 +93,5 @@ def get_7_hot_data(content_type):
     blogs = Blog.objects.filter(read_details__date__lte=today, read_details__date__gt=date).values("id", "title") \
                         .annotate(read_number_total=Sum("read_details__read_number")) \
                         .order_by("-read_number_total")  # 访问量按照从大到小排
-    print(type(blogs))
     return blogs[:5]
 
