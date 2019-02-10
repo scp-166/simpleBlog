@@ -21,10 +21,11 @@ from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='source_admin'),
     path("ckeditor", include("ckeditor_uploader.urls")),
     path('', views.home, name='home'),
     path('blog/', include('apps.blog.urls')),
+    path('users/', include('apps.targetauth.urls')),
 
 ]
 

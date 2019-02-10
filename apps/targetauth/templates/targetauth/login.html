@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    登陆
+{% endblock %}
+{% block header %}
+    <script src="{% static 'js/targetauth/login.js' %}"></script>
+{% endblock %}
+
+{% block body-content %}
+    <form action="" method="post">
+        <div class="form-group" style="width: 50%; margin:auto;">
+            <label for="InputTelephone">手机号</label>
+            <input type="text" class="form-control" id="InputTelephone" placeholder="Telephone" name="telephone">
+        </div>
+        <div class="form-group" style="width: 50%; margin:auto;">
+            <label for="InputPassword">密码</label>
+            <input type="password" class="form-control" id="InputPassword" placeholder="Password" name="password">
+        </div>
+        <div class="checkbox" style="width: 50%; margin: auto">
+            <label>
+                <input type="checkbox" name="remember" id="rememberMe">记住我
+            </label>
+        </div>
+        <button type="submit" class="btn btn-default center-block" id="login-btn">登陆</button>
+    </form>
+
+{% endblock %}

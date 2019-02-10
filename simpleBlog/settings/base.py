@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',  # 上传功能
     'apps.blog',
     'apps.read_statistics',
+    'apps.targetauth',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'simpleBlog.wsgi.application'
 
+# 自定义User对象
+AUTH_USER_MODEL = 'targetauth.User'
 
 # memcachedCache设置
 CACHES = {

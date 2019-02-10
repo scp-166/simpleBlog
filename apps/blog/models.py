@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from apps.targetauth.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 from apps.read_statistics.Mixin import ReadTimeExpandMixin
 from apps.read_statistics.models import ReadDetail
@@ -19,7 +20,6 @@ class BlogCategory(models.Model):
 
 class Blog(models.Model, ReadTimeExpandMixin):
 	title = models.CharField(verbose_name="标题", max_length=50)
-	# content = models.TextField(verbose_name="内容")
 	content = RichTextUploadingField(verbose_name="内容")
 	author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
 	create_time = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)

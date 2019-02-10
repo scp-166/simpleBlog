@@ -3,13 +3,31 @@ simple blog version
 
 
 
-### push 1
+### commit 1
 
 Initialization project
 
 
 
-### push 2
+### commit 2
 
 update requirement.txt
+
+
+
+### commint 3
+
+add favicon.ico
+
+
+
+### commit 4
+
+add user module
+
+add sweetalert
+
+add message_note
+
+
 
