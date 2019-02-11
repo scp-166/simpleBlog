@@ -9,6 +9,7 @@
 
 {% block body-content %}
     <form action="" method="post">
+{#        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">#}
         <div class="form-group" style="width: 50%; margin:auto;">
             <label for="InputTelephone">手机号</label>
             <input type="text" class="form-control" id="InputTelephone" placeholder="Telephone" name="telephone">

@@ -25,6 +25,16 @@ Auth.prototype.listenLoginEvent = function () {
         var telephone = telephoneInput.val();
         var password = passwordInput.val();
         var remember = rememberInput.val();
+        var token = null;
+        csrf_ajax.get({
+            'url': '/users/token/',
+            'success': function (result) {
+                if(result['csrftoken']){
+                    token = result['csrftoken'];
+                }
+            },
+            'token': token,
+        });
 
         csrf_ajax.post({
             'url': '/users/login/',
@@ -54,7 +64,7 @@ Auth.prototype.listenLoginEvent = function () {
                 }
             },
             'error': function (error) {
-                console.log(error)
+                more_sweetalert.alertErrorToast("逻辑问题，获取tokening, 请再点一次")
 
             },
         })

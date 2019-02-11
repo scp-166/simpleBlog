@@ -2,6 +2,7 @@ function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
+        // console.log("cookies: "+cookies);
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);
             // Does this cookie string begin with the name we want?
@@ -29,11 +30,12 @@ var csrf_ajax = {
     },
     '_ajaxSetup': function () {
         $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
+            beforeSend: function (xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
                 }
             }
         });
     }
+
 };
