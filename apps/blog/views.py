@@ -1,3 +1,4 @@
+import mistune
 from django.shortcuts import render, get_object_or_404
 from .models import Blog, BlogCategory
 from django.core.paginator import Paginator
@@ -26,8 +27,8 @@ def get_blog_list_common_data(request, blogs):
 	# 根据当前页，设置左右页码索引
 	# 假设左右n(page.number-NEAR_RANGE)个，则一共2n+1个页， 页码索引要求从1到最后
 	# 要求i在页码区间内，不然会出现负数啥的
-	arround_page_num = [i for i in range(page.number-settings.NEAR_RANGE,
-	                                     page.number+settings.NEAR_RANGE+1) if i in paginator_page_range]
+	arround_page_num = [i for i in range(page.number - settings.NEAR_RANGE,
+	                                     page.number + settings.NEAR_RANGE + 1) if i in paginator_page_range]
 
 	# 加上省略页码
 	if arround_page_num[0] >= settings.NEAR_RANGE:  # 如果首个值大于范围最小，则添加省略页码
@@ -100,9 +101,13 @@ def get_blog_with_date(request, year, month):
 
 
 def blog_detail(request, blog_pk):
-	blog = get_object_or_404(Blog, pk=blog_pk)
+	blog = get_object_or_404(Blog, pk=blog_pk)  # get_object_or_404： get or raise 404 exception
 	# 给阅读数加一
 	read_statistic_once_by_cookies(request, blog)
+
+	# 将markdown渲染为html
+	# mark = mistune.Markdown()
+	# blog.content = mark(blog.content)
 
 	context = {
 		# Blog是倒序的，找到前一篇就是找比当前博客时间早的， 选集合中的最后一篇

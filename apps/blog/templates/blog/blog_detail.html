@@ -6,41 +6,81 @@
 
 {% block header %}
     <link rel="stylesheet" href="{% static 'css/blog/blog_detail.css' %}">
+
+    <link rel="stylesheet" href="{% static 'editor.md/css/editormd.min.css' %}">
+    <link rel="stylesheet" href="{% static  "editor.md/css/editormd.preview.min.css" %}">
+{#    <link rel="stylesheet" href="{% static 'editor.md/css/editormd.logo.min.css' %}">#}
+
+    <script type="text/javascript" src="{% static  'editor.md/lib/marked.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'editor.md/lib/prettify.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'editor.md/lib/raphael.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'editor.md/lib/underscore.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'editor.md/lib/sequence-diagram.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'editor.md/lib/flowchart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'editor.md/lib/jquery.flowchart.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'editor.md/js/editormd.min.js' %}"></script>
+
 {% endblock %}
 
 {% block body-content %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs col-xs-offset-2">
-            <h1>{{ blog.title }}</h1>
-            <ul class="_blog-desc">
-                <li>作者: {{ blog.author.username }}</li>
-                <li>发表时间: {{ blog.create_time | date:"Y-m-d H:i:s" }}</li>
-                <li>分类: <a href="{% url 'blog:get_blog_with_category' blog_category_id=blog.type_name.pk%}">{{ blog.type_name }}</a></li>
-                <li>阅读数: {{ blog.get_read_times }}</li>
-            </ul>
-            <div class="_blog_content">
-                {{ blog.content | safe}}  <!-- 原文是html，safe不转义 -->
-            </div>
-            <div class="_blog_more">
-                {% if previous_blog %}
-                    上一篇:
-                    <a href="{% url 'blog:blog_detail' blog_pk=previous_blog.pk%}">
-                        {{ previous_blog.title }}
-                    </a>
-                {% else %}
-                    没有了
-                {% endif %}
-                {% if next_blog %}
-                    下一篇
-                    <a href="{% url 'blog:blog_detail' blog_pk=next_blog.pk%}">
-                    {{ next_blog.title }}
-                    </a>
-                {% else %}
-                    没有了
-                {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs">
+                <h1>{{ blog.title }}</h1>
+                <ul class="_blog-desc">
+                    <li>作者: {{ blog.author.username }}</li>
+                    <li>发表时间: {{ blog.create_time | date:"Y-m-d H:i:s" }}</li>
+                    <li>分类: <a
+                            href="{% url 'blog:get_blog_with_category' blog_category_id=blog.type_name.pk %}">{{ blog.type_name }}</a>
+                    </li>
+                    <li>阅读数: {{ blog.get_read_times }}</li>
+                </ul>
+                <div class="_blog_content">
+
+                    <div id="editormd-show" class="editormd-html-preview">  <!-- 纯粹的显示器 -->
+                        <textarea style="display:none;">
+                             {{ blog.content }}
+                        </textarea>
+                    </div>
+                </div>
+                <div class="_blog_more">
+
+
+                    {% if previous_blog %}
+
+
+                        <a href="{% url 'blog:blog_detail' blog_pk=previous_blog.pk %}">
+                        <button type="button" class="btn btn-primary pull-right"> {{ previous_blog.title }}</button>
+
+                        </a>
+                    {% else %}
+
+                        <button type="button" class="btn btn-primary disabled pull-right">没有了</button>
+
+                    {% endif %}
+                    {% if next_blog %}
+                        <a href="{% url 'blog:blog_detail' blog_pk=next_blog.pk %}">
+                        <button type="button" class="btn btn-info pull-right">{{ next_blog.title }}</button>
+
+                        </a>
+                    {% else %}
+
+                        <button type="button" class="btn btn-info disabled pull-right">没有了</button>
+
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+
+{% endblock %}
+
+{% block js-script %}
+    <script type="text/javascript">
+        $(function () {
+            var EditormdView = editormd.markdownToHTML("editormd-show", {});
+        });
+    </script>
 {% endblock %}

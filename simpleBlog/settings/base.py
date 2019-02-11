@@ -32,11 +32,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',  # 注册ckeditor富文本
-    'ckeditor_uploader',  # 上传功能
+    # 'ckeditor',  # 注册ckeditor富文本
+    # 'ckeditor_uploader',  # 上传功能
     'apps.blog',
     'apps.read_statistics',
     'apps.targetauth',
+    'mdeditor',  # 注册mdeditor
 ]
 
 MIDDLEWARE = [

@@ -1,10 +1,11 @@
 from django.db import models
-# from django.contrib.auth.models import User
+# from django.contrib.auth.models import User  # use new User
 from apps.targetauth.models import User
-from ckeditor_uploader.fields import RichTextUploadingField
+# from ckeditor_uploader.fields import RichTextUploadingField  # used ckeditor
 from apps.read_statistics.Mixin import ReadTimeExpandMixin
 from apps.read_statistics.models import ReadDetail
 from django.contrib.contenttypes.fields import GenericRelation
+from mdeditor.fields import MDTextField
 
 
 class BlogCategory(models.Model):
@@ -20,7 +21,7 @@ class BlogCategory(models.Model):
 
 class Blog(models.Model, ReadTimeExpandMixin):
 	title = models.CharField(verbose_name="标题", max_length=50)
-	content = RichTextUploadingField(verbose_name="内容")
+	content = MDTextField(verbose_name="内容")
 	author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
 	create_time = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
 	last_updated_time = models.DateTimeField(verbose_name="最后更新时间", auto_now=True)

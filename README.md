@@ -36,3 +36,12 @@ add message_note
 process bug of csrf-token (using views to set browers's cookies' csrftoken)
 
 token function apps/targetauth/views.py 
+
+
+
+### commit 6
+
+add mdeditor supported
+
+editor.md show blog_detail
+
