@@ -65,7 +65,20 @@
     </div><!-- /.container-fluid -->
 
 </nav>
+<!-- 右下角返回顶部 -->
+<span id="back_top" style="position: fixed; bottom: 30px; right:60px;">
+    <a href="#" style="size: 300px"> 返回顶部 </a>
+</span>
+
 {% block body-content %}{% endblock %}
 {% block js-script %}{% endblock %}
+
+<!-- 右下角返回顶部 -->
+<script>
+    $("#back_top").click(function () {
+        $("html").animate({'scrollTop': "0px"}, 500);
+    })
+
+</script>
 </body>
 </html>
