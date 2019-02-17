@@ -3,4 +3,4 @@ settings.py
 static_collected/
 __pycache__/
 editor/
-
+whoosh_index/

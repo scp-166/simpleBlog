@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    猫叹息道 | 博客列表
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/blog/blog_list.css' %}">
+{% endblock %}
+
+{% block body-content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">个人博客</div>
+                    <div class="panel-body">
+                        {% if page %}
+                            {% for result in page.object_list %}
+                                {% with result.object as blog %}
+                                    <div class="_blog-body">
+                                        <h3><a href="{% url 'blog:blog_detail' blog_pk=blog.pk %}">{{ blog.title }}</a>
+                                        </h3>
+                                        <p class="_blog-info">
+                                            <span class="glyphicon glyphicon-tag"><a
+                                                    href="#">{{ blog.type_name.type_name }}</a></span>
+                                            <span class="glyphicon glyphicon-time">{{ blog.create_time|date:"Y-m-d" }}</span>
+                                            <span class="glyphicon glyphicon-user">阅读:{{ blog.get_read_times }}</span>
+                                        </p>
+                                        <p>{{ blog.content|striptags|truncatechars:50 }}</p>
+                                        <!-- striptags:网页格式去除 truncatechars:限制长度-->
+                                    </div>
+                                {% endwith %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="_blog_body">
+                                <h3>暂无博客</h3>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+{#            {{ paginator.count }}#}
+{#            {{ paginator.num_pages }}#}
+{#            {{ paginator.page_range }}#}
+                <div>
+                    <nav aria-label="Page navigation">
+                        <div class="_paginator">
+                            <ul class="pagination">
+                                {% if page.has_previous %}  <!-- page的函数， 如果还有上一页-->
+                                    <li>
+                                        <a href="?q={{ query }}&page={{ page.previous_page_number }}">
+                                            <!-- page函数 上一页的页数-->
+                                            <span>&laquo;{{ page.number }}</span>
+                                        </a>
+                                        {% else %}
+
+
+                                        <!-- 没有上一页，则无法点击 -->
+                                    <li class="disabled">
+                                    <span class="disabled">&laquo;</span>
+                                {% endif %}
+                                </li>
+
+
+                                <!-- 判断是否还有后一页 -->
+                                {% if page.has_next %}
+                                    <li><a href="?q={{ query }}&page={{ page.next_page_number }}">
+                                        <span>{{ page.number }}&raquo;</span>
+                                    </a>  <!-- 获得下一页的页码-->
+                                        {% else %}
+                                    <li class="disabled">
+                                    <span class="disabled">&raquo;</span>
+                                {% endif %}
+                                </li>
+                            </ul>
+                            <p>
+                                共有{{ page.paginator.count }}博客  <!-- page.paginator的函数-->
+                                当前{{ page.number }}页
+                                共{{ page.paginator.num_pages }}页
+                            </p>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

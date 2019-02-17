@@ -22,6 +22,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='source_admin'),
+    path('search/', include('haystack.urls')),  # haystack搜索
     # path("ckeditor", include("ckeditor_uploader.urls")),  # has been used
     path('mdeditor/', include('mdeditor.urls')),
     path('', views.home, name='home'),

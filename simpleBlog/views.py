@@ -27,3 +27,16 @@ def home(request):
 		'seven_days_hot_data': seven_days_hot_data,
 	}
 	return render(request, 'home.html', context)
+
+#  传统搜索
+# from django.db.models import Q
+# from apps.blog.views import get_blog_list_common_data
+# def search(request):
+# 	q = request.GET.get('q')
+# 	context = {}
+# 	if q:
+# 		blogs = Blog.objects.filter(Q(title__icontains=q)|Q(content__icontains=q))
+# 		context = get_blog_list_common_data(request, blogs)
+#
+# 	return render(request, 'blog/blog_list.html', context)
+

@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'apps.read_statistics',
     'apps.targetauth',
     'mdeditor',  # 注册mdeditor
-]
+    'haystack',
+
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -139,3 +141,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 配置ckeditor上传路径
 CKEDITOR_UPLOAD_PATH = 'upload/'  # 会在media文件夹中创建
+
+
+# 配置haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 设置haystack的搜索引擎
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        # 替换为自己的引擎
+        'ENGINE': 'apps.blog.whoosh_cn_backend.WhooshEngine',
+        # 设置索引文件位置
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index')
+    }
+}
+
+# 设置每页显示的数目，默认为20，可以自己修改
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
+
+# 增删改查后自动创建索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

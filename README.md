@@ -45,3 +45,14 @@ add mdeditor supported
 
 editor.md show blog_detail
 
+
+
+### commit 7
+
+reduce js reduce references
+
+
+
+### commit 8
+
+add search module with haystack and jieba
