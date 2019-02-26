@@ -33,57 +33,57 @@
                         {% endfor %}
                     </div>
                 </div>
-            <div>
-                <nav aria-label="Page navigation">
-                    <div class="_paginator">
-                        <ul class="pagination">
-                            {% if blogs.has_previous %}  <!-- page的函数， 如果还有上一页-->
-                                <li>
-                                    <a href="?page={{ blogs.previous_page_number }}">   <!-- page函数 上一页的页数-->
-                                        <span>&laquo;</span>
-                                    </a>
-                            {% else %}
-                                <!-- 没有上一页，则无法点击 -->
-                                <li class="disabled">
+                <div>
+                    <nav aria-label="Page navigation">
+                        <div class="_paginator">
+                            <ul class="pagination">
+                                {% if blogs.has_previous %}  <!-- page的函数， 如果还有上一页-->
+                                    <li>
+                                        <a href="?page={{ blogs.previous_page_number }}">   <!-- page函数 上一页的页数-->
+                                            <span>&laquo;</span>
+                                        </a>
+                                        {% else %}
+                                        <!-- 没有上一页，则无法点击 -->
+                                    <li class="disabled">
                                     <span class="disabled">&laquo;</span>
-                            {% endif %}
+                                {% endif %}
                                 </li>
 
-                            {% for page_num in arround_page_num %}  <!-- arround_page_num是一个list，页码范围-->
-                                {% if page_num == blogs.number %}  <!-- 如果遍历出来的某一页是当前页，则处于选中状态 -->
-                                    <li class="active">
-                                        <span>{{ page_num }}</span>  <!-- with lable(a)-->
-                                    </li>
-                                {% else %}  <!-- 非选中页 -->
-                                    {% if page_num == "..." %}
-                                        <li class="disabled">
-                                            <span class="disabled">...</span>
+                                {% for page_num in arround_page_num %}  <!-- arround_page_num是一个list，页码范围-->
+                                    {% if page_num == blogs.number %}  <!-- 如果遍历出来的某一页是当前页，则处于选中状态 -->
+                                        <li class="active">
+                                            <span>{{ page_num }}</span>  <!-- with lable(a)-->
                                         </li>
-                                    {% else %}  <!-- 正常页码 -->
-                                        <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                    {% else %}  <!-- 非选中页 -->
+                                        {% if page_num == "..." %}
+                                            <li class="disabled">
+                                                <span class="disabled">...</span>
+                                            </li>
+                                        {% else %}  <!-- 正常页码 -->
+                                            <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
 
-                            <!-- 判断是否还有后一页 -->
-                            {% if blogs.has_next %}
-                                <li><a href="?page={{ blogs.next_page_number }}">
+                                <!-- 判断是否还有后一页 -->
+                                {% if blogs.has_next %}
+                                    <li><a href="?page={{ blogs.next_page_number }}">
                                         <span>&raquo;</span>
                                     </a>  <!-- 获得下一页的页码-->
-                            {% else %}
-                                <li class="disabled">
-                                <span class="disabled">&raquo;</span>
-                            {% endif %}
-                            </li>
-                        <p>
-                            共有{{ blogs.paginator.count }}博客  <!-- page.paginator的函数-->
-                            当前{{ blogs.number }}页
-                            共{{ blogs.paginator.num_pages }}页
-                        </p>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+                                        {% else %}
+                                    <li class="disabled">
+                                    <span class="disabled">&raquo;</span>
+                                {% endif %}
+                                </li>
+                            </ul>
+                            <p>
+                                共有{{ blogs.paginator.count }}博客  <!-- page.paginator的函数-->
+                                当前{{ blogs.number }}页
+                                共{{ blogs.paginator.num_pages }}页
+                            </p>
+                        </div>
+                    </nav>
+                </div>
 
             </div>
             <div class="hidden-xs col-sm-4 col-md-3 col-lg-2">  <!-- 超小屏幕隐藏 -->
